@@ -12,23 +12,22 @@ to enjoy random quotes submitted by themselves.
 Installation
 -------------
 
-1. $ mv rline.pl ~/.irssi/scripts/
-2. $ cd ~/.irssi/scripts/autorun; ln -s ../rline.pl .
-3. /script load rline.pl
-4. ENJOY!
+    $ mv rline.pl ~/.irssi/scripts/
+    $ cd ~/.irssi/scripts/autorun; ln -s ../rline.pl .
+    /script load rline.pl # this one in irssi
 
 Settings
 -------------
 
-/set rline_file path_to_source_file #defaults to randomfile.txt
-/set rline_delay 10 #delay in seconds, defaults to 10
+    /set rline_file path_to_source_file #defaults to randomfile.txt
+    /set rline_delay 10 #delay in seconds, defaults to 10
 
 Usage
 -------------
 
-/rline start #it will start to work on the active channel
-/rline stop #it will stop to work on the active channel
-/rline version #it will tell the others what script it uses
+    /rline start #it will start to work on the active channel
+    /rline stop #it will stop to work on the active channel
+    /rline version #it will tell the others what script it uses
 
 Features
 -------------
