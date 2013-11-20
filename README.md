@@ -21,6 +21,7 @@ Settings
 
     /set rline_file path_to_source_file #defaults to randomfile.txt
     /set rline_delay 10 #delay in seconds, defaults to 10
+    /set rline_author ON/OFF # decides if the author should be printed
 
 Usage
 -------------
