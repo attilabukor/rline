@@ -102,6 +102,7 @@ sub cmd_rline_randline_write {
   my $witem = $_[0];
   my $file = Irssi::settings_get_str('rline_file');
   my $delay = Irssi::settings_get_int('rline_delay');
+  my $author = Irssi::settings_get_bool('rline_author');
 
   if (open FILE, "$file") {
     srand;
@@ -109,6 +110,9 @@ sub cmd_rline_randline_write {
     rand($.)<1 and ($line=$_) while <FILE>;
     close FILE;
     $line = substr($line, 0, index($line, "\n"));
+    if (!$author && $line =~ /^\"(.*)\"[^"]*$/) {
+        $line = $1;
+    }
     $witem->command("/say $line");
   }
   else {
@@ -136,6 +140,7 @@ sub cmd_rline_submit {
 
 Irssi::settings_add_str('misc', 'rline_file', 'randomfile.txt');
 Irssi::settings_add_int('misc', 'rline_delay', 10);
+Irssi::settings_add_bool('misc', 'rline_author', 1);
 
 Irssi::command_bind ('rline stop', 'cmd_rline_randline_stop');
 Irssi::command_bind ('rline start', 'cmd_rline_randline');
