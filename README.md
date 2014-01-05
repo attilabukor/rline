@@ -40,3 +40,5 @@ Features
 - If anyone types "!q", it will say a random quote.
 - If anyone types "!addqd text", the quote will be stored in the
   rline_file in the format "text" - anyone
+- If anyone types "!who", it will tell the author of the last printed quote on
+  the channel
