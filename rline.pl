@@ -1,4 +1,4 @@
-# r1pp3rj4ck's rline script v1.0.1
+# r1pp3rj4ck's rline script v1.1.0
 #
 # @author r1pp3rj4ck <attila.bukor@gmail.com>
 #
@@ -111,13 +111,25 @@ sub cmd_rline_randline_write {
     rand($.)<1 and ($line=$_) while <FILE>;
     close FILE;
     $line = substr($line, 0, index($line, "\n"));
-    if (!$author && $line =~ /^\"(.*)\"[^"]*$/) {
-        $line = $1;
+    $line =~ /^\"(.*)\" - ([^"]*)$/;
+    $rline{'who' . $witem->{'name'}} = $2;
+    if (!$author) {
+      $line = $1;
     }
     $witem->command("/say $line");
   }
   else {
     Irssi::print("File $file does not exist");
+  }
+}
+
+sub cmd_rline_randline_who {
+  my ($server, $msg, $nick, $address, $target) = @_;
+
+  my $witem = Irssi::window_item_find($target);
+  $_ = $msg;
+  if (/^!who$/i) {
+    $witem->command("/say $rline{'who' . $witem->{'name'}}");
   }
 }
 
@@ -150,5 +162,6 @@ Irssi::command_bind ('rline', 'cmd_rline');
 
 Irssi::signal_add('message public', 'cmd_rline_randline_query');
 Irssi::signal_add('message public', 'cmd_rline_submit');
+Irssi::signal_add('message public', 'cmd_rline_randline_who');
 
 Irssi::print("r1pp3rj4ck's rline script v$VERSION is loaded successfully");
