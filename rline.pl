@@ -38,6 +38,8 @@
 # - If anyone types "!q", it will say a random quote.
 # - If anyone types "!addq text", the quote will be stored in the
 #   rline_file in the format "text" - anyone
+# - If anyone types "!who", it will tell the author of the last printed quote
+#   on the channel
 
 use strict;
 use vars qw($VERSION %IRSSI);
