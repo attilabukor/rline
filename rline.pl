@@ -36,7 +36,7 @@
 # - If you want to change the delay, you have to restart rline
 #   on the channel after it is set.
 # - If anyone types "!q", it will say a random quote.
-# - If anyone types "!addqd text", the quote will be stored in the
+# - If anyone types "!addq text", the quote will be stored in the
 #   rline_file in the format "text" - anyone
 
 use strict;
@@ -45,7 +45,7 @@ use vars qw($VERSION %IRSSI);
 use Irssi;
 use IPC::Open3;
 
-$VERSION = '1.0.1';
+$VERSION = '1.1.0';
 %IRSSI = (
   authors => 'r1pp3rj4ck <attila.bukor@gmail.com>',
   contact => 'IRC: irc.atw.hu #peta',
