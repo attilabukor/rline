@@ -118,7 +118,7 @@ sub cmd_rline_randline_write {
     my $authornick = $2;
     $authornick =~ s/(.)/\1 /g;
     $rline{'who' . $witem->{'name'}} = $authornick;
-    $line = $author ? "\"$1\" - " . $authornick : $1;
+    $line = $author ? "\"$line\" - " . $authornick : $line;
     $witem->command("/say $line");
   }
   else {
