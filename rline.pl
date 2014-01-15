@@ -114,10 +114,10 @@ sub cmd_rline_randline_write {
     close FILE;
     $line = substr($line, 0, index($line, "\n"));
     $line =~ /^\"(.*)\" - ([^"]*)$/;
-    $rline{'who' . $witem->{'name'}} = $2;
-    if (!$author) {
-      $line = $1;
-    }
+    my $author = $2;
+    $author =~ s/(.)/\1 /g;
+    $rline{'who' . $witem->{'name'}} = $author;
+    $line = $author ? "\"$1\" - " . $author : $1;
     $witem->command("/say $line");
   }
   else {
