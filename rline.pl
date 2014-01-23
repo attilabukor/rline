@@ -90,6 +90,17 @@ sub cmd_rline_randline {
   $rline{'timer' . $witem->{'name'}} = Irssi::timeout_add($delay * 1000, 'cmd_rline_randline_write', $witem);
 }
 
+sub cmd_rline_count {
+  my $file = Irssi::settings_get_str('rline_file');
+  my $witem = $_[0];
+  if (open (FILE, $file)) {
+    ++$lines while (<FILE>);
+    close FILE;
+    $witem->command("/say There are $lines");
+  }
+
+}
+
 sub cmd_rline_randline_query {
   my ($server, $msg, $nick, $address, $target) = @_;
 
