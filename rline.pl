@@ -91,14 +91,18 @@ sub cmd_rline_randline {
 }
 
 sub cmd_rline_count {
-  my $file = Irssi::settings_get_str('rline_file');
-  my $witem = $_[0];
-  if (open (FILE, $file)) {
-    ++$lines while (<FILE>);
-    close FILE;
-    $witem->command("/say There are $lines");
-  }
+  my ($server, $msg, $nick, $address, $target) = @_;
 
+  my $witem = Irssi::window_item_find($target);
+  $_ = $msg;
+  if (/^!count$/i) {
+    my $file = Irssi::settings_get_str('rline_file');
+    if (open (FILE, $file)) {
+      ++$lines while (<FILE>);
+      close FILE;
+      $witem->command("/say There are $lines");
+    }
+  }
 }
 
 sub cmd_rline_randline_query {
@@ -177,5 +181,6 @@ Irssi::command_bind ('rline', 'cmd_rline');
 Irssi::signal_add('message public', 'cmd_rline_randline_query');
 Irssi::signal_add('message public', 'cmd_rline_submit');
 Irssi::signal_add('message public', 'cmd_rline_randline_who');
+Irssi::signal_add('message public', 'cmd_rline_count');
 
 Irssi::print("r1pp3rj4ck's rline script v$VERSION is loaded successfully");
