@@ -101,7 +101,7 @@ sub cmd_rline_count {
     if (open (FILE, $file)) {
       ++$lines while (<FILE>);
       close FILE;
-      $witem->command("/say There are $lines");
+      $witem->command("/say There are $lines quotes in my database");
     }
   }
 }
