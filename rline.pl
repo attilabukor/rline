@@ -95,6 +95,7 @@ sub cmd_rline_count {
 
   my $witem = Irssi::window_item_find($target);
   $_ = $msg;
+  my $lines = 0;
   if (/^!count$/i) {
     my $file = Irssi::settings_get_str('rline_file');
     if (open (FILE, $file)) {
