@@ -90,6 +90,22 @@ sub cmd_rline_randline {
   $rline{'timer' . $witem->{'name'}} = Irssi::timeout_add($delay * 1000, 'cmd_rline_randline_write', $witem);
 }
 
+sub cmd_rline_count {
+  my ($server, $msg, $nick, $address, $target) = @_;
+
+  my $witem = Irssi::window_item_find($target);
+  $_ = $msg;
+  my $lines = 0;
+  if (/^!count$/i) {
+    my $file = Irssi::settings_get_str('rline_file');
+    if (open (FILE, $file)) {
+      ++$lines while (<FILE>);
+      close FILE;
+      $witem->command("/say There are $lines quotes in my database");
+    }
+  }
+}
+
 sub cmd_rline_randline_query {
   my ($server, $msg, $nick, $address, $target) = @_;
 
@@ -166,5 +182,6 @@ Irssi::command_bind ('rline', 'cmd_rline');
 Irssi::signal_add('message public', 'cmd_rline_randline_query');
 Irssi::signal_add('message public', 'cmd_rline_submit');
 Irssi::signal_add('message public', 'cmd_rline_randline_who');
+Irssi::signal_add('message public', 'cmd_rline_count');
 
 Irssi::print("r1pp3rj4ck's rline script v$VERSION is loaded successfully");
