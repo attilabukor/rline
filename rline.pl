@@ -40,6 +40,7 @@
 #   rline_file in the format "text" - anyone
 # - If anyone types "!who", it will tell the author of the last printed quote
 #   on the channel
+# - If anyone types "!count", it will tell how many quotes are in the database
 
 use strict;
 use vars qw($VERSION %IRSSI);
