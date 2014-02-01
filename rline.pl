@@ -47,6 +47,8 @@ use vars qw($VERSION %IRSSI);
 
 use Irssi;
 use IPC::Open3;
+use File::stat;
+use Time::localtime;
 
 $VERSION = '1.1.0';
 %IRSSI = (
@@ -153,6 +155,16 @@ sub cmd_rline_randline_who {
   }
 }
 
+sub cmd_rline_stats {
+  my ($server, $msg, $nick, $address, $target) = @_;
+  my $witem = Irssi::window_item_find($target);
+  my $file = Irssi::settings_get_str('rline_file');
+  $_ = $msg;
+  if (/^!stat$/i) {
+    $witem->command("/say " . ctime(stat($file)->mtime));
+  }
+}
+
 sub cmd_rline_randline_stop {
   my ($data, $server, $witem) = @_;
   Irssi::timeout_remove($rline{'timer' . $witem->{'name'}});
@@ -184,5 +196,6 @@ Irssi::signal_add('message public', 'cmd_rline_randline_query');
 Irssi::signal_add('message public', 'cmd_rline_submit');
 Irssi::signal_add('message public', 'cmd_rline_randline_who');
 Irssi::signal_add('message public', 'cmd_rline_count');
+Irssi::signal_add('message public', 'cmd_rline_stats');
 
 Irssi::print("r1pp3rj4ck's rline script v$VERSION is loaded successfully");
