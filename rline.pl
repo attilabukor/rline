@@ -16,7 +16,7 @@
 # 2. $ cd ~/.irssi/scripts/autorun; ln -s ../rline.pl .
 # 3. /script load rline.pl
 # 4. ENJOY!
-# 
+#
 # Settings
 # -------------
 # /set rline_file path_to_source_file #defaults to randomfile.txt
@@ -47,6 +47,8 @@ use vars qw($VERSION %IRSSI);
 
 use Irssi;
 use IPC::Open3;
+
+use Time::localtime;
 
 $VERSION = '1.1.0';
 %IRSSI = (
@@ -123,6 +125,7 @@ sub cmd_rline_randline_write {
   my $file = Irssi::settings_get_str('rline_file');
   my $delay = Irssi::settings_get_int('rline_delay');
   my $author = Irssi::settings_get_bool('rline_author');
+  my $date = strftime "%m/%d/%Y", localtime;
 
   if (open FILE, "$file") {
     srand;
@@ -135,6 +138,7 @@ sub cmd_rline_randline_write {
     my $authornick = $2;
     $authornick =~ s/(.)/\1 /g;
     $rline{'who' . $witem->{'name'}} = $authornick;
+    $rline{'date' . $witem->{'date'}} = $date;
     $line = $author ? "\"$line\" - " . $authornick : $line;
     $witem->command("/say $line");
   }
@@ -149,7 +153,7 @@ sub cmd_rline_randline_who {
   my $witem = Irssi::window_item_find($target);
   $_ = $msg;
   if (/^!who$/i) {
-    $witem->command("/say $rline{'who' . $witem->{'name'}}");
+    $witem->command("/say $rline{'who' . $witem->{'name'}} | $rline{'date' . $witem->{'date'}}");
   }
 }
 
